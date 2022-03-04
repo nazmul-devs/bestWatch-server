@@ -4,10 +4,7 @@ const router = express.Router();
 const ObjectID = require("mongodb").ObjectId;
 
 // Internal import
-const watchSchema = require("../schemas/watchSchema.js");
-
-// Model
-const Watch = new mongoose.model("Watch", watchSchema);
+const Watch = require("../schemas/watchSchema.js");
 
 router.get("/", async (req, res) => {
 	const watch = await Watch.find();
@@ -58,7 +55,11 @@ router.put("/:id", async (req, res) => {
 
 // delete by id
 router.delete("/:id", async (req, res) => {
-	await Watch.deleteOne({ _id: req.params.id });
+	await Watch.deleteOne({ _id: req.params.id }, (err) => {
+		err
+			? res.status(500).json({ error: "There was a server side error" })
+			: res.status(200).json({ message: "Data delete seccussfully" });
+	});
 });
 
 module.exports = router;

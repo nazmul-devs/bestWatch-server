@@ -6,4 +6,4 @@ const watchSchema = mongoose.Schema({
 	},
 });
 
-module.exports = watchSchema;
+module.exports = mongoose.model("Watch", watchSchema);

@@ -12,11 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/watch", wachRoute);
-
 mongoose
 	.connect(`${process.env.CONNECED_URL}`)
-	.then(() =>
-		app.listen(PORT, () => console.log("Best watch server on running"))
-	)
+	.then(() => {
+		app.use("/watch", wachRoute);
+		app.listen(PORT, () => console.log("Best watch server on running"));
+	})
 	.catch((err) => console.log(err.message));
