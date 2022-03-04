@@ -56,4 +56,9 @@ router.put("/:id", async (req, res) => {
 	);
 });
 
+// delete by id
+router.delete("/:id", async (req, res) => {
+	await Watch.deleteOne({ _id: req.params.id });
+});
+
 module.exports = router;
