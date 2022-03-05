@@ -1,8 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const ObjectID = require("mongodb").ObjectId;
-
 const wachRoute = require("./routes/watch.js");
 const PORT = process.env.PORT || 5000;
 require("dotenv").config();

@@ -1,10 +1,8 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
-const ObjectID = require("mongodb").ObjectId;
 
 // Internal import
-const Watch = require("../schemas/watchSchema.js");
+const Watch = require("../models/watchSchema.js");
 
 router.get("/", async (req, res) => {
 	const watch = await Watch.find();
@@ -13,7 +11,7 @@ router.get("/", async (req, res) => {
 
 // find by id
 router.get("/:id", async (req, res) => {
-	const watch = await Watch.findOne({ _id: req.params.id });
+	const watch = await Watch.findById(req.params.id);
 	res.send(watch);
 });
 router.post("/", async (req, res) => {
@@ -36,21 +34,15 @@ router.post("/all", async (req, res) => {
 });
 
 // update watch data
-router.put("/:id", async (req, res) => {
-	const id = req.params.id;
-	await Watch.updateOne(
-		{ _id: req.params.id },
-		{
-			set: {
-				name: "Update name",
-			},
-		},
-		(err) => {
-			err
-				? res.status(500).json({ error: "There was a server side error" })
-				: res.status(200).json({ message: "Data updated seccussfully" });
-		}
-	);
+router.patch("/:id", async (req, res) => {
+	try {
+		const watch = await Watch.findById(req.params.id);
+		Object.assign(watch, req.body);
+		watch.save();
+		res.send(watch);
+	} catch (error) {
+		res.status(500).json({ message: "Thare was a server error" });
+	}
 });
 
 // delete by id
