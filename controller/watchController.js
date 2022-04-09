@@ -1,5 +1,5 @@
 // internal import
-const Watch = require("../models/watchSchema");
+const Watch = require("../schemas/watchSchema");
 
 exports.createWatch = async (req, res) => {
 	const data = req.body;
