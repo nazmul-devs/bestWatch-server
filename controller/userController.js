@@ -19,10 +19,30 @@ exports.findUser = async (req, res) => {
 	}
 };
 
+exports.findUsers = async (req, res) => {
+	try {
+		const user = await User.find();
+		res.send(user);
+	} catch (error) {
+		res.status(500).json({ message: "Thare was a server error" });
+	}
+};
+
 exports.deletUser = async (req, res) => {
 	try {
 		const user = await User.findById(req.params.id);
 		await user.remove();
+	} catch (error) {
+		res.status(500).json({ message: "Thare was a server error" });
+	}
+};
+
+exports.googleLogin = async (req, res) => {
+	try {
+		const user = await User.findById(req.body.email);
+		Object.assign(watch, req.body);
+		User.save();
+		res.send(user);
 	} catch (error) {
 		res.status(500).json({ message: "Thare was a server error" });
 	}
