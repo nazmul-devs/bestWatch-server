@@ -8,7 +8,10 @@ const userSchema = mongoose.Schema({
 		type: String,
 		require: true,
 	},
-	photoURL: String,
+	role: {
+		type: String,
+		require: true,
+	},
 });
 
 module.exports = mongoose.model("User", userSchema);
