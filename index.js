@@ -24,7 +24,7 @@ app.use(express.json());
 
 mongoose
 	.connect(
-		"mongodb+srv://best-watch:best-watch668@cluster0.f4mgp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+		`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.f4mgp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 	)
 	.then(() => {
 		// testing
