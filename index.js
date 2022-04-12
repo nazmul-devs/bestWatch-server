@@ -11,17 +11,14 @@ const wachRoute = require("./routes/watch.js");
 const userRoute = require("./routes/user.js");
 const orderRoute = require("./routes/order.js");
 
+// middleware use
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
-app.use(
-	cors({
-		origin: "*",
-	})
-);
 app.use(express.json());
+app.use(cors({ origin: "*" }));
 
+// mongose connection
 mongoose
 	.connect(
 		`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.f4mgp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
