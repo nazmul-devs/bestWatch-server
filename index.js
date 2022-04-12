@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 // Internal imports
 const wachRoute = require("./routes/watch.js");
@@ -23,7 +23,9 @@ app.use(
 app.use(express.json());
 
 mongoose
-	.connect(`${process.env.CONNECED_URL}`)
+	.connect(
+		"mongodb+srv://best-watch:best-watch668@cluster0.f4mgp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+	)
 	.then(() => {
 		// testing
 		app.get("/", (req, res) => {
@@ -33,6 +35,6 @@ mongoose
 		app.use("/watch", wachRoute);
 		app.use("/user", userRoute);
 		app.use("/order", orderRoute);
-		app.listen(PORT, () => console.log("Best watch server on running"));
+		app.listen(port, () => console.log("Best watch server on running"));
 	})
 	.catch((err) => console.log(err.message));
