@@ -25,6 +25,10 @@ app.use(express.json());
 mongoose
 	.connect(`${process.env.CONNECED_URL}`)
 	.then(() => {
+		// testing
+		app.get("/", (req, res) => {
+			res.send("Best watch server is running");
+		});
 		// Routes
 		app.use("/watch", wachRoute);
 		app.use("/user", userRoute);
